@@ -81,6 +81,14 @@ int main(int argc, char** argv)
 
 			buf[i] = toupper(buf[i]);
 		}
+	  }else if( n == 0){
+             close(cfd);
+	  }else{
+              if(errno == EAGAIN || errno == EWOULDBLOCK){
+		      continue;
+	      }
+	      close(cfd);
+	      close(lfd);
 	  }
 
 	  write(cfd, buf, n);
